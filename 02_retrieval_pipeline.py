@@ -1,5 +1,6 @@
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+# from langchain_openai import OpenAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,7 +8,8 @@ load_dotenv()
 persistent_directory = "db/chroma_db"
 
 # Load embeddings and vector store
-embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
+# embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
+embedding_model = OllamaEmbeddings(model="nomic-embed-text")
 
 db = Chroma(
     persist_directory = persistent_directory,
@@ -16,9 +18,9 @@ db = Chroma(
 )
 
 # Search for relevant documents
-# query = "How much did Microsoft pay to acquire GitHub?"
+query = "How much did Microsoft pay to acquire GitHub?"
 # query = "Which island does SpaceX lease for its launches in the Pacific?"
-query = "In what year did Tesla begin production of the Roadster?"
+# query = "In what year did Tesla begin production of the Roadster?"
 
 # Retriever will retrieve top 5 chunks with the highest similarity scores to the user's query embedding
 retriever = db.as_retriever(search_kwargs={"k": 5}) 
