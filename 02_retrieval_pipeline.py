@@ -18,9 +18,7 @@ db = Chroma(
 )
 
 # Search for relevant documents
-query = "How much did Microsoft pay to acquire GitHub?"
-# query = "Which island does SpaceX lease for its launches in the Pacific?"
-# query = "In what year did Tesla begin production of the Roadster?"
+query = "Which island does SpaceX lease for its launches in the Pacific?"
 
 # Retriever will retrieve top 5 chunks with the highest similarity scores to the user's query embedding
 retriever = db.as_retriever(search_kwargs={"k": 5}) 
