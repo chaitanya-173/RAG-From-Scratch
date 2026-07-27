@@ -85,17 +85,13 @@ def create_vector_store(chunks, persist_directory="db/chroma_db"):
     return vectorstore
 
 def main():
-    """Main ingestion pipeline"""
-    print("Main Function")
+    print("Starting injestion pipeline...")
     
-    # Step 1: Load documents
-    documents = load_documents(docs_path="docs")  
+    documents = load_documents(docs_path="docs")  # Step 1: Load documents    
+    chunks = split_documents(documents)  # Step 2: Split into chunks
+    vectorstore = create_vector_store(chunks)  # Step 3: Create vector store
 
-    # Step 2: Split into chunks
-    chunks = split_documents(documents)
-    
-    # # Step 3: Create vector store
-    vectorstore = create_vector_store(chunks)
+    print("Ingestion completed successfully!")
 
 if __name__ == "__main__":
     main()
