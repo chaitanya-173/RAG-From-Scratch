@@ -8,8 +8,6 @@ import os
 load_dotenv()
 
 persistent_directory = "db/chroma_db"
-
-# Load embeddings and vector store
 embedding_model = OllamaEmbeddings(model="nomic-embed-text")
 
 db = Chroma(
@@ -18,20 +16,8 @@ db = Chroma(
     collection_metadata={"hnsw:space": "cosine"}
 )
 
-# Search for relevant documents
 query = "How much did Microsoft pay to acquire GitHub?"
-
-# Retriever will retrieve top 5 chunks with the highest similarity scores to the user's query embedding
 retriever = db.as_retriever(search_kwargs={"k": 5})
-
-# retriever = db.as_retriever(
-#     search_type="similarity_score_threshold",
-#     search_kwargs={
-#         "k": 5,
-#         "score_threshold": 0.3  # Only return chunks with cosine similarity ≥ 0.3
-#     }
-# )
-
 relevant_docs = retriever.invoke(query)
 
 print(f"User Query: {query}")
